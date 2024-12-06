@@ -2,8 +2,8 @@
 #define NODOAVL_h
 #include <iostream>
 #include <stdio.h>
-
 using namespace std;
+
 class NodoAVL{
     friend class AVL;
     public:

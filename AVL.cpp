@@ -1,7 +1,8 @@
 #include "AVL.h"
 #include "NodoAVL.h"
 
-AVL::AVL(){
+AVL::AVL(){ // Crea un árbol vacío
+//constructor
     raiz = NULL;
 }
 
@@ -9,8 +10,8 @@ AVL::AVL(NodoAVL *r){
     raiz = r; // La raiz es el primer nodo que se pasa como parámetro
 }
 
-AVL::AVL(string nombre, NodoAVL *hIz, NodoAVL *hDer){
-    raiz = new NodoAVL(nombre, hIz, hDer); 
+AVL::AVL(string nombre, NodoAVL *hIz, NodoAVL *hDer){  //constructor que crea árbolBin con dato y dos subárboles
+    raiz = new NodoAVL(nombre, hIz, hDer); //llamamos al constructor del Nodo y raiz es un puntero al Nodo creado
 }
 
 AVL::~AVL(){
@@ -23,8 +24,8 @@ void AVL::verInOrden(){
 }
 
 //ver en orden dependiendo del nodo
-void AVL::verInOrden(NodoAVL *arb){
-    if(arb){   //Recorre el árbol de forma recursiva llamando la hijo izquierdo, luego el nodo y luego el hijo derecho
+void AVL::verInOrden(NodoAVL *arb){  
+    if(arb){   //Recorre y muestra el árbol de forma recursiva llamando la hijo izquierdo, luego el nodo (raíz) y luego el hijo derecho
         verInOrden(arb->hi);
         cout << arb->nombre << endl;
         verInOrden(arb->hd);
