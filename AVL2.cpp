@@ -130,9 +130,9 @@ void AVL::mostrarNivelesMayorMenor(NodoAVL* nodo) {
     }
 }
 
-float AVL::tiempoPromedioProcesos(int prioridad){
-    tiempoPromedioProcesos(prioridad, raiz);
-}
+//float AVL::tiempoPromedioProcesos(int prioridad){
+ //   tiempoPromedioProcesos(prioridad, raiz);
+//}
 
 /*
 float AVL::tiempoPromedioProcesos(int prioridad, NodoAVL *nodo){
