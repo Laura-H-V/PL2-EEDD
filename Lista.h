@@ -14,8 +14,8 @@ private:
 public:
     Lista(); // Constructor
     ~Lista(); // Destructor
-    void insertarInicio(Proceso v);  
-    void insertarFinal(Proceso v); 
+    void insertarInicio(Proceso v);  //Insertar derecha
+    void insertarFinal(Proceso v);  //Insertar izquierda
     void insertarEnPosicion(Proceso v, int pos);  
     void eliminar(Proceso v);  
     bool esVacia();

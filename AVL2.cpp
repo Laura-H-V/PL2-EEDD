@@ -30,7 +30,9 @@ void AVL::verInOrden(){
 void AVL::verInOrden(NodoAVL *arb){  
     if(arb){   //Recorre y muestra el árbol de forma recursiva llamando la hijo izquierdo, luego el nodo (raíz) y luego el hijo derecho
         verInOrden(arb->hi);
-        cout << arb->nombre << endl;
+        cout << "Nodo con prioridad: " << arb->prioridad << endl;
+        cout << "Procesos en la lista:" << endl;
+        arb->listaProcesos.mostrar(); 
         verInOrden(arb->hd);
     }
     if (arb != nullptr) {
@@ -56,17 +58,17 @@ void AVL::insertar(Proceso proc){
 void AVL::insertar(Proceso proc, NodoAVL *nodo){
     if (nodo==nullptr){
         Lista listaNueva;
-        nodo = new NodoAVL(listaNueva, NULL, NULL, proc.get_prioridad());
-        cout << "Nodo creado con prioridad: " << proc.get_prioridad() << endl;
-        nodo->listaProcesos.insertar_proceso(proc);
-        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.get_prioridad() << endl;
+        nodo = new NodoAVL(listaNueva, NULL, NULL, proc.getPrioridad());
+        cout << "Nodo creado con prioridad: " << proc.getPrioridad() << endl;
+        nodo->listaProcesos.insertarFinal(proc);
+        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.getPrioridad() << endl;
         return;
     }
 
-    if (proc.get_prioridad() == nodo->prioridad) {
-        nodo->listaProc.insertar_proceso(proc);
-        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.get_prioridad() << endl;
-    } else if (proc.get_prioridad() < nodo->prioridad) {
+    if (proc.getPrioridad() == nodo->prioridad) {
+        nodo->listaProcesos.insertarFinal(proc);
+        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.getPrioridad() << endl;
+    } else if (proc.getPrioridad() < nodo->prioridad) {
         // Recorrer hacia la izquierda si la prioridad del proceso es menor
         insertar(proc, nodo->hi);
     } else {
@@ -105,7 +107,7 @@ void AVL::mostrarNiveles() {
 
 
 void AVL::mostrarNiveles(NodoAVL *nodo) {
-    if (nodo != nullptr && !nodo->listaProcesos.es_vacia()) {
+    if (nodo != nullptr && !nodo->listaProcesos.esVacia()) {
         mostrarNiveles(nodo->hi);
         mostrarNiveles(nodo->hd);
         cout << "Prioridad: " << nodo->prioridad << endl;
@@ -132,6 +134,7 @@ float AVL::tiempoPromedioProcesos(int prioridad){
     tiempoPromedioProcesos(prioridad, raiz);
 }
 
+/*
 float AVL::tiempoPromedioProcesos(int prioridad, NodoAVL *nodo){
     if (nodo == nullptr) {
         cout << "El árbol está vacío o el nodo proporcionado es nulo" << endl;
@@ -139,7 +142,7 @@ float AVL::tiempoPromedioProcesos(int prioridad, NodoAVL *nodo){
     } 
     if (nodo->prioridad == prioridad){
         float tiempoTotal = 0;
-        float cantidadProcesos = nodo->listaProcesos.get_longitud();
+        float cantidadProcesos = nodo->listaProcesos.longitud();
         if (cantidadProcesos == 0) {
             return 0;
         }
@@ -154,3 +157,4 @@ float AVL::tiempoPromedioProcesos(int prioridad, NodoAVL *nodo){
         return tiempoPromedioProcesos(prioridad, nodo->hd);
     }
 }
+*/

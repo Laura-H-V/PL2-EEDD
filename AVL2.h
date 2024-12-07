@@ -25,8 +25,8 @@ class AVL{
         void mostrarNivelesMayorMenor(); // Muestra los niveles del árbol de mayor a menor
         void mostrarNivelesMayorMenor(NodoAVL *nodo);
 
-        float tiempoPromedioProcesos(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
-        float tiempoPromedioProcesos(int prioridad, NodoAVL *nodo);        
+        //float tiempoPromedioProcesos(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
+        //float tiempoPromedioProcesos(int prioridad, NodoAVL *nodo);        
     protected: 
     private:
         NodoAVL *raiz;
