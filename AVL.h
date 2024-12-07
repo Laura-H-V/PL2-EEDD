@@ -9,7 +9,7 @@ class AVL{
         AVL(string nombre, NodoAVL *hIz=NULL, NodoAVL *hDer=NULL);
         virtual ~AVL();
         void verInOrden(); //Al insertar se hace en orden, ya está ordenado
-        void verInOrden(NodoAVL *arb);  
+        void verInOrden(NodoAVL *arb);
 
         void insertar(string nombre);
         void insertar(string nom, NodoAVL *nodo);

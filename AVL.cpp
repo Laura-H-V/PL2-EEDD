@@ -59,16 +59,21 @@ void AVL::insertar(string nombre, NodoAVL *nodo){
     }
 }
 
-int main(){
-    cout<<"Creo el árbol"<<endl;
-    AVL abb("carlos");
-    cout<<"árbol: "<<endl;
-    abb.verInOrden();
+int main() {
+    cout << "Creo el árbol" << endl;
+    AVL abb("carlos");  // Creamos una instancia de AVL llamada 'abb'
+    cout << "árbol: " << endl;
+    abb.verInOrden();  // Mostramos el árbol (en este caso, solo tiene el nodo "carlos")
 
-    cout<<"introdizco Jose"<<endl;
-    AVL abb("jose");
-    AVL abb("javier");
-    cout<<"árbol: "<<endl;
-    abb.verInOrden();
+    cout << "Introduzco Jose" << endl;
+    abb.insertar("jose");  // Insertamos "jose" en el árbol
+    cout << "árbol: " << endl;
+    abb.verInOrden();  // Mostramos el árbol actualizado
+
+    cout << "Introduzco Javier" << endl;
+    abb.insertar("javier");  // Insertamos "javier" en el árbol
+    cout << "árbol: " << endl;
+    abb.verInOrden();  // Mostramos el árbol actualizado nuevamente
+
     return 0;
 }

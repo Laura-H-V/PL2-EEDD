@@ -11,6 +11,10 @@ Lista::~Lista() {
     cola = nullptr;
 }
 
+bool Lista::esVacia() {
+    return cabeza == nullptr;  // La lista está vacía si la cabeza es nullptr
+}
+
 // inserta izquierda
 void Lista::insertarInicio(Proceso v) {
     pNodoLista nuevo = new NodoLista(v, cabeza, nullptr);
