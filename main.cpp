@@ -23,8 +23,8 @@ int main() {
         cout << "7. Numero de nucleos de atencion operativos\n";
         cout<< "8. Añadir un proceso directamente al ABBProcesos\n";
         //cout << "8. Ejecutar todos los procesos\n";
-        cout<< "9. Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad.\n";
-        cout<< "10. Añadir un proceso directamente al ABBProcesos\n";
+        cout<< "9. Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad\n";
+        cout<< "10. Mostrar los procesos con la prioridad dada\n";
         cout<< "11. Mostrar todos los niveles de prioridad que han tenido al menos un proceso ejecutado, en orden numérico\n";
         cout<< "12.Calcular y mostrar el nivel de prioridad con el mayor número de procesos y el de menor número  \n";
         cout<< "13. Calcular y mostrar el tiempo promedio de ejecución de los procesos con una prioridad específica \n";
