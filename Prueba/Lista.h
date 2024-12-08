@@ -19,7 +19,7 @@ public:
     void insertarEnPosicion(Proceso v, int pos);  
     void eliminar(Proceso v);  
     bool esVacia();
-    Proceso* buscar(int id);  
+    Proceso* buscar(int pid);  
     void mostrar();
     int longitud();
     Proceso inicio();  

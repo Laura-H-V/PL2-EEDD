@@ -78,10 +78,10 @@ void Lista::eliminar(Proceso v) {
 }
 
 // Método buscar
-Proceso* Lista::buscar(int id) {
+Proceso* Lista::buscar(int pid) {
     pNodoLista actual = cabeza;
     while (actual != nullptr) {
-        if (actual->valor.getPID() == id) {  // Compara por PID
+        if (actual->valor.getPID() == pid) {  // Compara por PID
             return &actual->valor;  // Devuelve un puntero al proceso encontrado
         }
         actual = actual->siguiente;

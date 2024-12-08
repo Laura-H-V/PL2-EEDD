@@ -31,8 +31,8 @@ class AVL{
 
         void llenarVector(NodoAVL* nodo, std::vector<NodoAVL*>& nodos); // Guarda los nodos
 
-        //float tiempoPromedioProcesos(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
-        //float tiempoPromedioProcesos(int prioridad, NodoAVL *nodo);        
+        float tiempoPromedioEjecucion(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
+        float tiempoPromedioEjecucion(int prioridad, NodoAVL *nodo);        
     protected: 
     private:
         NodoAVL *raiz;

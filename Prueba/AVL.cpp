@@ -172,31 +172,42 @@ void AVL::llenarVector(NodoAVL* nodo, std::vector<NodoAVL*>& nodos) {
     }
 }
 
-//float AVL::tiempoPromedioProcesos(int prioridad){
- //   tiempoPromedioProcesos(prioridad, raiz);
-//}
+float AVL::tiempoPromedioEjecucion(int prioridad) {
+    return tiempoPromedioEjecucion(prioridad, raiz);
+}
 
-/*
-float AVL::tiempoPromedioProcesos(int prioridad, NodoAVL *nodo){
+float AVL::tiempoPromedioEjecucion(int prioridad, NodoAVL *nodo) {
     if (nodo == nullptr) {
         cout << "El árbol está vacío o el nodo proporcionado es nulo" << endl;
         return 0;
-    } 
-    if (nodo->prioridad == prioridad){
+    }
+
+    // Si el nodo actual tiene la prioridad que buscamos
+    if (nodo->prioridad == prioridad) {
         float tiempoTotal = 0;
-        float cantidadProcesos = nodo->listaProcesos.longitud();
+        int cantidadProcesos = nodo->listaProcesos.longitud();  // Obtiene la longitud de la lista de procesos
         if (cantidadProcesos == 0) {
-            return 0;
+            return 0;  // Si no hay procesos, retorna 0
         }
-        for (int i = 0; i < cantidadProcesos; ++i) {
-            Proceso p = nodo->listaProcesos.coger(i);
-            tiempoTotal += p.get_tiempo_ejecucion(); // O cambiar a get_tiempo_ejecucion si es correcto
+
+        // Recorre los nodos de la lista de procesos y acumula los tiempos de ejecución (tiempoVida)
+        pNodoLista actual = nodo->listaProcesos.obtenerCabeza();  // Obtener la cabeza de la lista
+        while (actual != nullptr) {
+            Proceso p = actual->obtenerValor();  // Obtiene el proceso del nodo actual
+            tiempoTotal += p.getTiempoVida();  // Suma el tiempo de vida (tiempo de ejecución)
+            actual = actual->obtenerSiguiente();  // Avanza al siguiente nodo
         }
-    return tiempoTotal / cantidadProcesos;
-    } else if (prioridad < nodo->prioridad) {
-        return tiempoPromedioProcesos(prioridad, nodo->hi);
-    } else {
-        return tiempoPromedioProcesos(prioridad, nodo->hd);
+
+        // Devuelve el tiempo promedio de ejecución
+        return tiempoTotal / cantidadProcesos;
+    } 
+    // Si la prioridad es menor que la del nodo actual, busca en el subárbol izquierdo
+    else if (prioridad < nodo->prioridad) {
+        return tiempoPromedioEjecucion(prioridad, nodo->hi);
+    } 
+    // Si la prioridad es mayor, busca en el subárbol derecho
+    else {
+        return tiempoPromedioEjecucion(prioridad, nodo->hd);
     }
 }
-*/
+

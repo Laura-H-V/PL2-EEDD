@@ -39,6 +39,14 @@ int main() {
     cout << "\nMostrando el árbol por niveles (mayor a menor):" << endl;
     arbol.mostrarNivelesMayorMenor();
 
+    // Comprobar la función tiempoPromedioEjecucion
+    int prioridadParaPromedio = 3;  // Puedes cambiar la prioridad para probar con otras prioridades
+    cout << "\nCalculando el tiempo promedio de ejecución para los procesos con prioridad " 
+         << prioridadParaPromedio << ":" << endl;
+    float tiempoPromedio = arbol.tiempoPromedioEjecucion(prioridadParaPromedio);
+    cout << "Tiempo promedio de ejecución para los procesos con prioridad " 
+         << prioridadParaPromedio << " es: " << tiempoPromedio << endl;
+
     // Finalizar
     cout << "\nFin de la prueba del árbol AVL." << endl;
     return 0;
