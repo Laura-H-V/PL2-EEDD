@@ -71,10 +71,16 @@ int main() {
                 planificador.meterProcesosEnABB();
                 break;
             case 9:
+                planificador.mostrarABB();
                 break;
             case 10:
+                int prioridad;
+                cout << "Introduce la prioridad a buscar: ";
+                cin >> prioridad;
+                planificador.buscarProcesos(prioridad);
                 break;
             case 11:
+                planificador.mostrarNivelesconProcesosEjecutados();
                 break;
             case 12:
                 arbol.calcularMayorMenorProcesos();

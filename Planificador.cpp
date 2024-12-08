@@ -768,3 +768,18 @@ void Planificador::meterProcesosEnABB(){
                 agregarProcesoAlABB(nuevoProceso);
                 std::cout << "Proceso añadido al ABB con éxito!" << std::endl;
 }
+
+void Planificador::mostrarABB(){
+    std::cout << "\nMostrando el árbol por niveles (mayor a menor):" << std::endl;
+    abbProcesos.mostrarNivelesMayorMenor();
+}
+
+void Planificador::buscarProcesos(int prioridad){
+    std::cout << "Buscando procesos con prioridad " << prioridad << "..." << std::endl;
+    abbProcesos.buscar(prioridad);
+}
+
+void Planificador::mostrarNivelesconProcesosEjecutados(){
+    std::cout << "Mostrando los niveles con procesos ejecutados de menor a mayor:" << std::endl;
+    abbProcesos.mostrarNiveles();
+}

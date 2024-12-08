@@ -26,7 +26,7 @@ class AVL{
         void insertar(Proceso proc, NodoAVL *nodo);
 
         NodoAVL* getRaiz();
-        void mostrarNiveles(); // Muestra los niveles del árbol
+        void mostrarNiveles(); // Muestra los niveles del árbol de menor a mayor
         void mostrarNiveles(NodoAVL *nodo);
 
         void mostrarNivelesMayorMenor(); // Muestra los niveles de mayor a menor 
