@@ -1,9 +1,12 @@
 #include "AVL.h"
 #include <algorithm>
+#include "Lista.h"
+#include "NodoAvl.h"
 
 AVL::AVL(){ // Crea un árbol vacío
 //constructor
-    raiz = NULL;
+    ListaProcesos listaVacia;
+    raiz = new NodoAVL(listaVacia, nullptr, nullptr, 0); // Prioridad = 0 para P0
 }
 
 AVL::AVL(NodoAVL *r){
@@ -19,62 +22,81 @@ AVL::~AVL(){
 }
 
 //ver en orden desde la raíz
-void AVL::verInOrden(){
-    if (raiz == nullptr) {
+void AVL::verInOrden() {
+    if (!raiz) {
         cout << "El árbol está vacío" << endl;
-    } else {
-        verInOrden(raiz);
+        return;
     }
+    verInOrden(raiz);
 }
 
-//ver en orden dependiendo del nodo
-void AVL::verInOrden(NodoAVL *arb){  
-    if(arb){   //Recorre y muestra el árbol de forma recursiva llamando la hijo izquierdo, luego el nodo (raíz) y luego el hijo derecho
-        verInOrden(arb->hi);
+void AVL::verInOrden(NodoAVL *arb) {
+    if (!arb) return;
+
+    verInOrden(arb->hi); // Recorrer subárbol izquierdo
+
+    if (arb->prioridad != 0) { // Ignorar nodo P0
         cout << "Nodo con prioridad: " << arb->prioridad << endl;
-        cout << "Procesos en la lista:" << endl;
-        arb->listaProcesos.mostrar(); 
-        verInOrden(arb->hd);
+        arb->listaProcesos.mostrar();
     }
+
+    verInOrden(arb->hd); // Recorrer subárbol derecho
 }
 
-void AVL::insertar(Proceso proc){
-    if (raiz == nullptr) {
-        // Si el árbol está vacío, inicializa la raíz
+void AVL::eliminarP0() {
+    if (!raiz || raiz->prioridad != 0) return;
+
+    NodoAVL *nuevaRaiz = nullptr;
+
+    // Determinar nueva raíz
+    if (raiz->hi) {
+        nuevaRaiz = raiz->hi;
+        // Insertar subárbol derecho en el nodo más a la derecha del nuevo árbol
+        if (raiz->hd) {
+            NodoAVL *temp = nuevaRaiz;
+            while (temp->hd) temp = temp->hd;
+            temp->hd = raiz->hd;
+        }
+    } else if (raiz->hd) {
+        nuevaRaiz = raiz->hd;
+    }
+
+    delete raiz; // Liberar memoria del nodo ficticio
+    raiz = nuevaRaiz;
+}
+
+
+void AVL::insertar(Proceso proc) {
+    if (!raiz) {
         ListaProcesos listaNueva;
         raiz = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
-        cout << "Nodo raíz creado con prioridad: " << proc.getPrioridad() << endl;
         raiz->listaProcesos.insertarFinal(proc);
-    } else {
-        // Si no está vacío, llama al método recursivo
-        insertar(proc, raiz);
+        return;
     }
-}   
+
+    // Llamar a la sobrecarga recursiva comenzando desde la raíz
+    insertar(proc, raiz);
+}
+ 
 
 void AVL::insertar(Proceso proc, NodoAVL *nodo){
-    if (proc.getPrioridad() == nodo->prioridad) {
+    if (proc.getPrioridad() == nodo->prioridad){
         nodo->listaProcesos.insertarFinal(proc);
-        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.getPrioridad() << endl;
     } else if (proc.getPrioridad() < nodo->prioridad) {
-        if (nodo->hi == nullptr) {
+        if (!nodo->hi) {
             ListaProcesos listaNueva;
             nodo->hi = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
-            cout << "Nodo izquierdo creado con prioridad: " << proc.getPrioridad() << endl;
-            nodo->hi->listaProcesos.insertarFinal(proc);
-        } else {
-            insertar(proc, nodo->hi);
         }
+        insertar(proc, nodo->hi);
     } else {
-        if (nodo->hd == nullptr) {
+        if (!nodo->hd) {
             ListaProcesos listaNueva;
             nodo->hd = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
-            cout << "Nodo derecho creado con prioridad: " << proc.getPrioridad() << endl;
-            nodo->hd->listaProcesos.insertarFinal(proc);
-        } else {
-            insertar(proc, nodo->hd);
         }
+        insertar(proc, nodo->hd);
     }
 }
+
 
 NodoAVL* AVL::getRaiz(){
     return raiz;
