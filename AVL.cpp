@@ -156,7 +156,7 @@ void AVL::mostrarNivelesMayorMenor(){
 
 void AVL::mostrarNivelesMayorMenor(NodoAVL* nodo) {
     if (nodo == nullptr) {
-        cout << "El arbol esta vacio" << endl;
+        cout << "El árbol está vacío." << endl;
         return;
     }
 
@@ -166,16 +166,28 @@ void AVL::mostrarNivelesMayorMenor(NodoAVL* nodo) {
     // Llenar el vector con todos los nodos del árbol
     llenarVector(nodo, nodos);
 
-    // Ordenar el vector en orden descendente de prioridad
+    // Ordenar el vector en orden descendente de prioridad (mayor a menor)
     std::sort(nodos.begin(), nodos.end(), [](NodoAVL* a, NodoAVL* b) {
-        return a->prioridad > b->prioridad; // Orden descendente
+        return a->prioridad > b->prioridad;  // Orden descendente
     });
 
-    // Mostrar los nodos en orden descendente
+    // Mostrar los nodos en orden descendente de prioridad
     for (NodoAVL* nodo : nodos) {
+        // Mostrar la prioridad del nodo
         cout << "Prioridad: " << nodo->prioridad << endl;
+
+        // Recorrer la lista de procesos en este nodo y mostrar el PID y el tiempo de vida
+        pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
+        while (actual != nullptr) {
+            Proceso p = actual->obtenerValor();
+            cout << "  PID: " << p.getPID() << ", Tiempo en el sistema: " << p.getTiempoVida() << " minutos" << endl;
+            actual = actual->obtenerSiguiente();
+        }
+
+        cout << "--------------------------------------------" << endl;
     }
 }
+
 
 
 void AVL::llenarVector(NodoAVL* nodo, std::vector<NodoAVL*>& nodos) {

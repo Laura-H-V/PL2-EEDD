@@ -46,7 +46,10 @@ public:
     //Funciones para el ABB
     void agregarProcesoAlABB(Proceso nuevoProceso);
     void meterProcesosEnABB();
-
+    void mostrarABB();
+    void buscarProcesos(int prioridad);
+    void mostrarNivelesconProcesosEjecutados();
+    
 };
 
 #endif // PLANIFICADOR_H
