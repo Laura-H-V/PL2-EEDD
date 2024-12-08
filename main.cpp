@@ -8,6 +8,7 @@ using namespace std;
 
 
 int main() {
+    
     Planificador planificador;
     int opcion;
     do {
