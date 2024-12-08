@@ -62,8 +62,22 @@ int main() {
             case 7:
                 planificador.numeroNucleos();
                 break;
+            //case 8:
+            //    planificador.ejecutarTodosLosProcesos();
+            //    break;
             case 8:
-                planificador.ejecutarTodosLosProcesos();
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 14:
                 break;
             case 15:
                 planificador.borrarProcesos();
