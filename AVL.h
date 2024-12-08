@@ -19,6 +19,8 @@ class AVL{
         void buscar(int prioridad); // Muestra procesos en el arbol de una prioridad dada
         void buscar(int prioridad, NodoAVL *nodo);
 
+        void eliminarP0(); // Elimina el nodo con prioridad 0
+
         void insertar(Proceso proc);
         void insertar(Proceso proc, NodoAVL *nodo);
 
@@ -38,6 +40,7 @@ class AVL{
         float tiempoPromedioTotal(NodoAVL *nodo);
         int contarProcesos(NodoAVL *nodo); //Cuenta los procesos que hay en un nodo o lista   
         float sumarTiempos(NodoAVL* nodo);
+
     protected: 
     private:
         NodoAVL *raiz;
