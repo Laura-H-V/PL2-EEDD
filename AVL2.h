@@ -26,7 +26,8 @@ class AVL{
         void mostrarNivelesMayorMenor(NodoAVL *nodo);
 
         //float tiempoPromedioProcesos(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
-        //float tiempoPromedioProcesos(int prioridad, NodoAVL *nodo);        
+        //float tiempoPromedioProcesos(int prioridad, NodoAVL *nodo);  
+        void eliminarP0(); // Eliminar nodo ficticio P0      
     protected: 
     private:
         NodoAVL *raiz;
