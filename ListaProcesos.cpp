@@ -131,4 +131,6 @@ Proceso ListaProcesos::fin() {
     return Proceso();  // Retorna un proceso vacío si la lista está vacía
 }
 
-// Obte
+pNodoListaProcesos ListaProcesos::obtenerCabeza() const {
+    return cabeza;
+}
