@@ -147,8 +147,19 @@ void AVL::mostrarNiveles(NodoAVL *nodo) {
     // Mostrar los nodos en orden ascendente (menor a mayor)
     for (NodoAVL* nodo : nodos) {
         cout << "Prioridad: " << nodo->prioridad << endl;
+
+        // Recorrer la lista de procesos en este nodo y mostrar el PID y el tiempo de vida
+        pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
+        while (actual != nullptr) {
+            Proceso p = actual->obtenerValor();
+            cout << "  PID: " << p.getPID() << ", Tiempo de vida: " << p.getTiempoVida() << " minutos" << endl;
+            actual = actual->obtenerSiguiente();
+        }
+
+        cout << "--------------------------------------------" << endl;
     }
 }
+
 
 void AVL::mostrarNivelesMayorMenor(){
     mostrarNivelesMayorMenor(raiz);
@@ -180,7 +191,7 @@ void AVL::mostrarNivelesMayorMenor(NodoAVL* nodo) {
         pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
         while (actual != nullptr) {
             Proceso p = actual->obtenerValor();
-            cout << "  PID: " << p.getPID() << ", Tiempo en el sistema: " << p.getTiempoVida() << " minutos" << endl;
+            cout << "  PID: " << p.getPID()  << endl;
             actual = actual->obtenerSiguiente();
         }
 
