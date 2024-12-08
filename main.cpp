@@ -34,7 +34,6 @@ int main() {
         cout << "15. Salir\n";
         cout << "Introduce tu opcion: ";
         cin >> opcion;
-        cin >> prioridad;
 
     switch (opcion) {
         
