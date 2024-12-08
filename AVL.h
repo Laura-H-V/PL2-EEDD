@@ -1,7 +1,7 @@
 #ifndef AVL_H
 #define AVL_H
 #include "NodoAVL.h"
-#include "Lista.h"
+#include "ListaProcesos.h"
 #include <vector>
 
 
@@ -9,7 +9,7 @@ class AVL{
     public:
         AVL();
         AVL(NodoAVL *r);
-        AVL(Lista listaProcesos, NodoAVL *hIz=NULL, NodoAVL *hDer=NULL, int prioridad=5);
+        AVL(ListaProcesos listaProcesos, NodoAVL *hIz=NULL, NodoAVL *hDer=NULL, int prioridad=5);
         virtual ~AVL();
         void verInOrden(); //Mostrará el hijo izq, la raíz y el hijo derecho
         void verInOrden(NodoAVL *arb);

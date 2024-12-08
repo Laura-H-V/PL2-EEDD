@@ -1,23 +1,26 @@
-#include "Lista.h"
+#include "Listaprocesos.h"
 
-Lista::Lista() : cabeza(nullptr), cola(nullptr) {}
+// Constructor
+Listaprocesos::Listaprocesos() : cabeza(nullptr), cola(nullptr) {}
 
-Lista::~Lista() {
+// Destructor
+Listaprocesos::~Listaprocesos() {
     while (!esVacia()) {
-        pNodoLista temp = cabeza;
+        pNodoListaProcesos temp = cabeza;
         cabeza = cabeza->siguiente;
         delete temp;
     }
     cola = nullptr;
 }
 
-bool Lista::esVacia() {
+// Verificar si la lista está vacía
+bool Listaprocesos::esVacia() {
     return cabeza == nullptr;  // La lista está vacía si la cabeza es nullptr
 }
 
-// inserta izquierda
-void Lista::insertarInicio(Proceso v) {
-    pNodoLista nuevo = new NodoLista(v, cabeza, nullptr);
+// Insertar al inicio
+void Listaprocesos::insertarInicio(Proceso v) {
+    pNodoListaProcesos nuevo = new NodoListaProcesos(v, cabeza, nullptr);
     if (esVacia()) {
         cabeza = cola = nuevo;
     } else {
@@ -26,9 +29,9 @@ void Lista::insertarInicio(Proceso v) {
     }
 }
 
-// Inserta derecha
-void Lista::insertarFinal(Proceso v) {
-    pNodoLista nuevo = new NodoLista(v, nullptr, cola);
+// Insertar al final
+void Listaprocesos::insertarFinal(Proceso v) {
+    pNodoListaProcesos nuevo = new NodoListaProcesos(v, nullptr, cola);
     if (esVacia()) {
         cabeza = cola = nuevo;
     } else {
@@ -37,28 +40,28 @@ void Lista::insertarFinal(Proceso v) {
     }
 }
 
-// Método insertarEnPosicion
-void Lista::insertarEnPosicion(Proceso v, int pos) {
+// Insertar en una posición específica
+void Listaprocesos::insertarEnPosicion(Proceso v, int pos) {
     if (pos <= 0) {
         insertarInicio(v);
     } else if (pos >= longitud()) {
         insertarFinal(v);
     } else {
-        pNodoLista actual = cabeza;
+        pNodoListaProcesos actual = cabeza;
         for (int i = 0; i < pos - 1 && actual->siguiente != nullptr; i++) {
             actual = actual->siguiente;
         }
-        pNodoLista nuevo = new NodoLista(v, actual->siguiente, actual);
+        pNodoListaProcesos nuevo = new NodoListaProcesos(v, actual->siguiente, actual);
         actual->siguiente->anterior = nuevo;
         actual->siguiente = nuevo;
     }
 }
 
-// Método eliminar
-void Lista::eliminar(Proceso v) {
+// Eliminar un proceso de la lista
+void Listaprocesos::eliminar(Proceso v) {
     if (esVacia()) return;
 
-    pNodoLista actual = cabeza;
+    pNodoListaProcesos actual = cabeza;
     while (actual != nullptr && actual->valor.getPID() != v.getPID()) {  // Usar el PID del proceso para compararlos
         actual = actual->siguiente;
     }
@@ -77,9 +80,9 @@ void Lista::eliminar(Proceso v) {
     delete actual;
 }
 
-// Método buscar
-Proceso* Lista::buscar(int pid) {
-    pNodoLista actual = cabeza;
+// Buscar un proceso por PID
+Proceso* Listaprocesos::buscar(int pid) {
+    pNodoListaProcesos actual = cabeza;
     while (actual != nullptr) {
         if (actual->valor.getPID() == pid) {  // Compara por PID
             return &actual->valor;  // Devuelve un puntero al proceso encontrado
@@ -89,9 +92,9 @@ Proceso* Lista::buscar(int pid) {
     return nullptr;  // Si no se encuentra, devuelve nullptr
 }
 
-// Método mostrar
-void Lista::mostrar() {
-    pNodoLista actual = cabeza;
+// Mostrar los procesos de la lista
+void Listaprocesos::mostrar() {
+    pNodoListaProcesos actual = cabeza;
     while (actual != nullptr) {
         std::cout << "Proceso PID: " << actual->valor.getPID() << std::endl;
         actual = actual->siguiente;
@@ -99,10 +102,10 @@ void Lista::mostrar() {
     std::cout << std::endl;
 }
 
-// Método longitud
-int Lista::longitud() {
+// Obtener la longitud de la lista
+int Listaprocesos::longitud() {
     int contador = 0;
-    pNodoLista actual = cabeza;
+    pNodoListaProcesos actual = cabeza;
     while (actual != nullptr) {
         contador++;
         actual = actual->siguiente;
@@ -110,8 +113,8 @@ int Lista::longitud() {
     return contador;
 }
 
-// Método inicio
-Proceso Lista::inicio() {
+// Obtener el primer proceso (inicio)
+Proceso Listaprocesos::inicio() {
     if (!esVacia() && cabeza != nullptr) {
         Proceso proceso = cabeza->valor;  // Devuelve el proceso en la cabeza
         return proceso;
@@ -119,8 +122,8 @@ Proceso Lista::inicio() {
     return Proceso();  // Retorna un proceso vacío si la lista está vacía
 }
 
-// Método fin
-Proceso Lista::fin() {
+// Obtener el último proceso (fin)
+Proceso Listaprocesos::fin() {
     if (!esVacia() && cola != nullptr) {
         Proceso proceso = cola->valor;  // Devuelve el proceso en la cola
         return proceso;
@@ -128,7 +131,4 @@ Proceso Lista::fin() {
     return Proceso();  // Retorna un proceso vacío si la lista está vacía
 }
 
-
-pNodoLista Lista::obtenerCabeza() const {
-    return cabeza;
-}
+// Obte

@@ -3,18 +3,18 @@
 #include <iostream>
 #include <stdio.h>
 #include "Proceso.h"
-#include "Lista.h"
+#include "ListaProcesos.h"
 using namespace std;
 
 class NodoAVL{
     friend class AVL;
     public:
-        NodoAVL(Lista listaProc, NodoAVL *izq=NULL, NodoAVL *der=NULL, int prioridad=5);
+        NodoAVL(ListaProcesos listaProc, NodoAVL *izq=NULL, NodoAVL *der=NULL, int prioridad=5);
         virtual ~NodoAVL();
         void verLista();//Accede al valor de nombre
 
         //Para trabajar con listas
-        Lista getLista();
+        ListaProcesos getLista();
         NodoAVL* getIzq();
         NodoAVL* getDerch();
         int getPrioridad();
@@ -24,7 +24,7 @@ class NodoAVL{
         void getPrioridad(int prioridad);
         void mostrar();
     private:
-        Lista listaProcesos;
+        ListaProcesos listaProcesos;
         NodoAVL *hi,*hd;
         int prioridad;
 };

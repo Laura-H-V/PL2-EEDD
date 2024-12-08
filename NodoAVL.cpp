@@ -1,10 +1,10 @@
 #include "NodoAVL.h"
-#include "Lista.h"
+#include "ListaProcesos.h"
 #include "Proceso.h"
 #include <iostream>
 using namespace std;
 
-NodoAVL::NodoAVL(Lista listaProcesos, NodoAVL *izq, NodoAVL *der, int prioridad){
+NodoAVL::NodoAVL(ListaProcesos listaProcesos, NodoAVL *izq, NodoAVL *der, int prioridad){
     this->listaProcesos = listaProcesos;
     hi = izq;
     hd = der;
@@ -19,7 +19,7 @@ void NodoAVL::verLista(){
     listaProcesos.mostrar();
 }
 
-Lista NodoAVL::getLista(){
+ListaProcesos NodoAVL::getLista(){
     return listaProcesos;
 }
 
