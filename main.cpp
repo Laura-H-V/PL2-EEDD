@@ -8,7 +8,6 @@ using namespace std;
 
 
 int main() {
-    
     Planificador planificador;
     int opcion;
     do {
@@ -33,7 +32,6 @@ int main() {
         cout << "15. Salir\n";
         cout << "Introduce tu opcion: ";
         cin >> opcion;
-
 
     switch (opcion) {
         
@@ -67,24 +65,7 @@ int main() {
             //    planificador.ejecutarTodosLosProcesos();
             //    break;
             case 8:
-                int pid, ppid, tiempoInicio, tiempoVida, prioridad;
-
-                // Leer los datos del proceso desde el teclado
-                std::cout << "Introduzca el PID del proceso: ";
-                std::cin >> pid;
-
-                std::cout << "Introduzca el PPID del proceso: ";
-                std::cin >> ppid;
-
-                std::cout << "Introduzca el tiempo de inicio del proceso: ";
-                std::cin >> tiempoInicio;
-
-                std::cout << "Introduzca el tiempo de vida del proceso: ";
-                std::cin >> tiempoVida;
-
-                std::cout << "Introduzca la prioridad del proceso: ";
-                std::cin >> prioridad;
-                
+                planificador.meterProcesosEnABB();
                 break;
             case 9:
                 break;

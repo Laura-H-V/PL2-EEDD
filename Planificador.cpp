@@ -1,5 +1,4 @@
 #include "Planificador.h"
-#include "AVL.h"
 
 
 Planificador::Planificador() {
@@ -276,8 +275,7 @@ void Planificador::simularTiempo(int minutosSimular) {
                     procesosTerminadosAcumulados++;
 
                     // **Inserción en el ABBProcesos**
-                    AVL arbol;
-                    arbol.insertar(*procesoEnNucleo); 
+                    abbProcesos.insertar(*procesoEnNucleo); 
 
                     nucleo.liberarProceso();
 
@@ -741,3 +739,32 @@ void Planificador::setNumeroProcesos(int numero) {
     numeroProcesos = numero;
 }
 
+
+//Funciones para ABB
+void Planificador::agregarProcesoAlABB(Proceso nuevoProceso){
+    abbProcesos.insertar(nuevoProceso);
+}
+
+void Planificador::meterProcesosEnABB(){
+    int pid, ppid, tiempoInicio, tiempoVida, prioridad;
+
+                // Leer los datos del proceso desde el teclado
+                std::cout << "Introduzca el PID del proceso: ";
+                std::cin >> pid;
+
+                std::cout << "Introduzca el PPID del proceso: ";
+                std::cin >> ppid;
+
+                std::cout << "Introduzca el tiempo de inicio del proceso: ";
+                std::cin >> tiempoInicio;
+
+                std::cout << "Introduzca el tiempo de vida del proceso: ";
+                std::cin >> tiempoVida;
+
+                std::cout << "Introduzca la prioridad del proceso: ";
+                std::cin >> prioridad;  
+
+                Proceso nuevoProceso(pid, ppid, tiempoInicio, tiempoVida, prioridad);
+                agregarProcesoAlABB(nuevoProceso);
+                std::cout << "Proceso añadido al ABB con éxito!" << std::endl;
+}

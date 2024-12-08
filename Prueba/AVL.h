@@ -1,6 +1,6 @@
 #ifndef AVL_H
 #define AVL_H
-#include "NodoAVL2.h"
+#include "NodoAVL.h"
 #include "Lista.h"
 
 class AVL{

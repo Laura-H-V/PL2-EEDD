@@ -5,6 +5,7 @@
 #include "Nucleo.h"
 #include "Cola.h"
 #include "Lista.h"
+#include "AVL.h"
 #include <iostream>
 
 
@@ -15,6 +16,7 @@ private:
     int tiempoInicio;
     int numeroProcesos;
     int TiempoTotalProcesos;
+    AVL abbProcesos;
     pNodoLista cabeza;
 public:
     Planificador();
@@ -40,6 +42,11 @@ public:
     Nucleo& nucleoMenosOcupado(); //Con menos procesos en espera
     int numeroNucleos();
     void mostrarLista();
+
+    //Funciones para el ABB
+    void agregarProcesoAlABB(Proceso nuevoProceso);
+    void meterProcesosEnABB();
+
 };
 
 #endif // PLANIFICADOR_H
