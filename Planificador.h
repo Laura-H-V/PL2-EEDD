@@ -20,7 +20,6 @@ private:
     pNodoLista cabeza;
 public:
     Planificador();
-    void mostrarColaEspera();
     void crearPilaProcesos();
     void asignarProcesoANucleo(Proceso* proceso);
     void liberarNucleo(int idNucleo);
@@ -28,11 +27,8 @@ public:
     void borrarProcesos();
     void mostrarProcesosEnEjecucion();
     void simularTiempo(int minutos);
-    void ejecutarTodosLosProcesos();
-    void decrementarTiempo();
     void setTiempoInicio(int tTotal);
     void setNumeroProcesos(int num);
-    void getNumeroProcesos();
 
     //Funciones adicionales para implementar la lista de núcleos
     void agregarNucleo(); //Si tiene más de dos procesos en la cola de espera
@@ -51,6 +47,7 @@ public:
     void mostrarNivelesconProcesosEjecutados();
     void calcularMayorMenorProcesos();
     void tiempoPromedioPreorden();
+    void tiempoPromedio(int p);
 };
 
 #endif // PLANIFICADOR_H

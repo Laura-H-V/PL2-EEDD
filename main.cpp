@@ -16,7 +16,7 @@ int main() {
         cout << "2. Mostrar procesos en la pila\n";
         cout << "3. Borrar pila de procesos\n";
         cout << "4. Simular tiempo\n";
-        cout << "5. Mostrar los datos en la lista de nucelos\n"; 
+        cout << "5. Mostrar los datos en la lista de nucleos\n"; 
         //(id del núcleo, proceso que esta siendo ejecutado, tiempo restante de ejecución, 
         //procesos que están a la espera de ser ejecutados)
         cout << "6. Consultar que nucleo tiene menos procesos y cuál es el más ocupado\n";
@@ -85,7 +85,7 @@ int main() {
             case 13:
                 cout << "Ingrese la prioridad: ";
                 cin >> prioridad;
-                //arbol.tiempoPromedioEjecucion(prioridad);
+                planificador.tiempoPromedio(prioridad);
                 break;
             case 14:
                 planificador.tiempoPromedioPreorden();

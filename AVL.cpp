@@ -1,6 +1,6 @@
 #include "AVL.h"
 #include <algorithm>
-#include "Lista.h"
+#include "ListaProcesos.h"
 #include "NodoAvl.h"
 
 AVL::AVL(){ // Crea un árbol vacío
@@ -152,7 +152,7 @@ void AVL::mostrarNiveles(NodoAVL *nodo) {
         pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
         while (actual != nullptr) {
             Proceso p = actual->obtenerValor();
-            cout << "  PID: " << p.getPID() << ", Tiempo de vida: " << p.getTiempoVida() << " minutos" << endl;
+            cout << "  PID: " << p.getPID() << ", Tiempo en sistema: " << p.getTiempoSistema() << " minutos" << endl;
             actual = actual->obtenerSiguiente();
         }
 

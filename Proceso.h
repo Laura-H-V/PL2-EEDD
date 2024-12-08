@@ -8,13 +8,14 @@ private:
     int inicio;
     int tiempoVida;
     int prioridad;
+    int tiempoSistema;
     int nucleoAsignado;
     int llegada;
 
 
 public:
     Proceso(); // Declaración del constructor por defecto
-    Proceso(int pid, int ppid, int ini, int tiempo, int pri, int nucleo = -1); // Constructor con parámetros
+    Proceso(int pid, int ppid, int ini, int tiempo, int pri, int nucleo = -1,int tiempoSistema=0); // Constructor con parámetros
 
     // Métodos de acceso
     int getPID() const;
@@ -31,6 +32,8 @@ public:
     void setNucleoAsignado(int nucleo);
     void setInicio(int valor);
     void setTiempoVida(int valor);
+    int getTiempoSistema();
+    void setTiempoSistema(int t);
 
     ~Proceso(); // Destructor
 };

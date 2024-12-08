@@ -273,6 +273,7 @@ void Planificador::simularTiempo(int minutosSimular) {
 
                     totalTiempoEnSistemaAcumulado += tiempoTotal;
                     procesosTerminadosAcumulados++;
+                    procesoEnNucleo->setTiempoSistema(tiempoTotal);
 
                     // **Inserción en el ABBProcesos**
                     abbProcesos.insertar(*procesoEnNucleo); 
@@ -548,99 +549,6 @@ int Planificador::numeroNucleos(){
 }
 
 
-//Funcion 8, ejecutar todos los procesos
-void Planificador::ejecutarTodosLosProcesos() {
-    int procesosTerminados = 0;
-    int minuto = 0;
-    int totalTiempoEnSistema = 0;
-    int totalProcesos = pilaProcesos.longitud(); // Número total de procesos
-
-    int tiempoInicio = minuto;  // Guardamos el minuto inicial de la simulación
-
-    // Asignar los primeros tres procesos a los núcleos
-    for (int i = 0; i < 3 && !pilaProcesos.esVacia(); ++i) {
-        Proceso* proceso = pilaProcesos.mostrar();
-        if (proceso) {
-            asignarProcesoANucleo(proceso);
-            proceso->setInicio(minuto); // Establecemos el minuto de inicio del proceso
-            pilaProcesos.desapilar();
-        }
-    }
-
-    
-
-    // Simular el paso del tiempo minuto a minuto
-    while (procesosTerminados < totalProcesos) {
-        std::cout << "Simulando minuto " << minuto << std::endl;
-        mostrarProcesosEnEjecucion();
-
-        // Procesar los núcleos minuto a minuto
-        pNodoLista actual = listaNucleos.obtenerCabeza();
-        bool hayProcesosActivos = false;
-
-        while (actual != nullptr) {
-            Nucleo& nucleo = actual->obtenerValor(); // Usar obtenerValor()
-            Proceso* procesoEnNucleo = nucleo.getProceso();
-            if (procesoEnNucleo != nullptr) {
-                // Comprobar si el proceso ha terminado
-                if (minuto - procesoEnNucleo->getInicio() >= procesoEnNucleo->getTiempoVida()) {
-                    int tiempoEnSistema = minuto - procesoEnNucleo->getInicio();
-                    int tiempoEnCola = procesoEnNucleo->getInicio() - tiempoInicio;
-                    int tiempoTotal = tiempoEnCola + procesoEnNucleo->getTiempoVida();
-                    std::cout << "Fin del proceso: "
-                              << "Minuto: " << minuto << ", "
-                              << "PID: " << procesoEnNucleo->getPID() << ", "
-                              << "PPID: " << procesoEnNucleo->getPPID() << ", "
-                              << "Nucleo: " << nucleo.getId() << ", "
-                              << "Estado: Terminado, "
-                              << "Tiempo en cola: " << tiempoEnCola << " minutos, "
-                              << "Tiempo de vida: " << procesoEnNucleo->getTiempoVida() << " minutos, "
-                              << "Tiempo total: " << tiempoTotal << " minutos" << std::endl;
-                    totalTiempoEnSistema += tiempoTotal;
-                    nucleo.liberarProceso();
-                    procesosTerminados++;
-
-                    // Asignar un nuevo proceso del núcleo si hay en la cola de espera
-                    if (!nucleo.colaEsperaNucleo.es_vacia()) {
-                        Proceso nuevoProceso = nucleo.colaEsperaNucleo.desencolar();
-                        Proceso* nuevoProcesoPtr = new Proceso(nuevoProceso);
-                        nucleo.asignarProceso(nuevoProcesoPtr);
-                        nuevoProcesoPtr->setInicio(minuto);
-                        std::cout << "Inicio del proceso: "
-                                  << "Minuto: " << minuto << ", "
-                                  << "PID: " << nuevoProcesoPtr->getPID() << ", "
-                                  << "PPID: " << nuevoProcesoPtr->getPPID() << ", "
-                                  << "Nucleo: " << nucleo.getId() << ", "
-                                  << "Estado: Ejecutando" << std::endl;
-                    }
-                }
-                hayProcesosActivos = true;
-            }
-            actual = actual->obtenerSiguiente(); // Avanzar al siguiente nodo
-        }
-
-        // Comprobar si hay núcleos vacíos y eliminarlos si hay más de dos libres
-        eliminarNucleosLibres();
-
-        minuto++;
-
-        // Verificar si no hay más procesos en ejecución
-        if (!hayProcesosActivos) {
-            std::cout << "No hay procesos activos en los núcleos. Terminando simulación." << std::endl;
-            break;
-        }
-    }
-
-    // Calcular el tiempo medio que los procesos pasan en el sistema
-    double tiempoMedioEnSistema = (double)totalTiempoEnSistema / totalProcesos;
-    
-    // Mostrar el tiempo medio con 2 decimales usando printf
-    printf("Tiempo medio en el sistema: %.2f minutos\n", tiempoMedioEnSistema);
-}
-
-
-
-
 //Agregar núcleo si todos los núcleos tienen más de 2 procesos en espera
 void Planificador::agregarNucleo() {
     // Verificar si todos los núcleos tienen más de 2 procesos en espera
@@ -793,3 +701,8 @@ void Planificador::tiempoPromedioPreorden(){
     std::cout << "Mostrando el tiempo promedio de ejecucion de los procesos en cada nivel de prioridad" << std::endl;
     abbProcesos.calcularYMostrarTiempoPromedioPreorden();
     }
+
+void Planificador::tiempoPromedio(int p){
+    cout<<"Tiempo promedio :"<<endl;
+    cout<< abbProcesos.tiempoPromedioEjecucion(p)<<endl;
+}
