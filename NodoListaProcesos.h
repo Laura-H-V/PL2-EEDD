@@ -8,7 +8,7 @@ private:
     Proceso valor;
     NodoListaProcesos* siguiente;  // Cambiado de 'NodoLista' a 'NodoListaProcesos'
     NodoListaProcesos* anterior;  // Cambiado de 'NodoLista' a 'NodoListaProcesos'
-    friend class Listaprocesos; // La clase Listaprocesos puede acceder a los datos privados de NodoListaProcesos
+    friend class ListaProcesos; // La clase Listaprocesos puede acceder a los datos privados de NodoListaProcesos
 
 public:
     NodoListaProcesos(); // Constructor vacío
