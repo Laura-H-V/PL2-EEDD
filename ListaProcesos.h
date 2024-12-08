@@ -6,6 +6,7 @@
 #include <iostream>
 
 class ListaProcesos {  
+    
 private:
     Proceso valor;  
     pNodoListaProcesos cabeza;  
