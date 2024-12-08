@@ -1,7 +1,9 @@
 #ifndef AVL_H
 #define AVL_H
-#include "NodoAVL2.h"
+#include "NodoAVL.h"
 #include "Lista.h"
+#include <vector>
+
 
 class AVL{
     public:
@@ -11,6 +13,8 @@ class AVL{
         virtual ~AVL();
         void verInOrden(); //Mostrará el hijo izq, la raíz y el hijo derecho
         void verInOrden(NodoAVL *arb);
+
+
         int contarNodos(); // Cuenta los nodos del árbol
         void buscar(int prioridad); // Muestra procesos en el arbol de una prioridad dada
         void buscar(int prioridad, NodoAVL *nodo);
@@ -18,12 +22,14 @@ class AVL{
         void insertar(Proceso proc);
         void insertar(Proceso proc, NodoAVL *nodo);
 
-        NodoAVL* get_raiz();
+        NodoAVL* getRaiz();
         void mostrarNiveles(); // Muestra los niveles del árbol
         void mostrarNiveles(NodoAVL *nodo);
 
-        void mostrarNivelesMayorMenor(); // Muestra los niveles del árbol de mayor a menor
+        void mostrarNivelesMayorMenor(); // Muestra los niveles de mayor a menor 
         void mostrarNivelesMayorMenor(NodoAVL *nodo);
+
+        void llenarVector(NodoAVL* nodo, std::vector<NodoAVL*>& nodos); // Guarda los nodos
 
         //float tiempoPromedioProcesos(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
         //float tiempoPromedioProcesos(int prioridad, NodoAVL *nodo);        

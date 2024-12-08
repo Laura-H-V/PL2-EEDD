@@ -1,4 +1,4 @@
-#include "AVL2.h"
+#include "AVL.h"
 #include "Proceso.h"
 #include <iostream>
 using namespace std;

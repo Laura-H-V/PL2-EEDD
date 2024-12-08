@@ -1,4 +1,4 @@
-#include "NodoAVL2.h"
+#include "NodoAVL.h"
 #include "Lista.h"
 #include "Proceso.h"
 #include <iostream>

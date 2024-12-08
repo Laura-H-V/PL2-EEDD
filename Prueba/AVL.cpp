@@ -1,4 +1,5 @@
-#include "AVL2.h"
+#include "AVL.h"
+#include <algorithm>
 
 AVL::AVL(){ // Crea un árbol vacío
 //constructor
@@ -35,49 +36,47 @@ void AVL::verInOrden(NodoAVL *arb){
         arb->listaProcesos.mostrar(); 
         verInOrden(arb->hd);
     }
-    if (arb != nullptr) {
-        // Recorrer subárbol izquierdo
-        verInOrden(arb->hi);
-
-        // Imprimir la prioridad del nodo
-        //cout << "Nodo con prioridad: " << arb->prioridad << endl;
-
-        // Imprimir los procesos de la lista asociada al nodo
-        cout << "Procesos en la lista:" << endl;
-        //arb->listaProc.mostrar(); // Acceso directo al miembro listaProc
-
-        // Recorrer subárbol derecho
-        verInOrden(arb->hd);
-    }
 }
 
 void AVL::insertar(Proceso proc){
-    insertar(proc, raiz);
+    if (raiz == nullptr) {
+        // Si el árbol está vacío, inicializa la raíz
+        Lista listaNueva;
+        raiz = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
+        cout << "Nodo raíz creado con prioridad: " << proc.getPrioridad() << endl;
+        raiz->listaProcesos.insertarFinal(proc);
+    } else {
+        // Si no está vacío, llama al método recursivo
+        insertar(proc, raiz);
+    }
 }   
 
 void AVL::insertar(Proceso proc, NodoAVL *nodo){
-    if (nodo==nullptr){
-        Lista listaNueva;
-        nodo = new NodoAVL(listaNueva, NULL, NULL, proc.getPrioridad());
-        cout << "Nodo creado con prioridad: " << proc.getPrioridad() << endl;
-        nodo->listaProcesos.insertarFinal(proc);
-        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.getPrioridad() << endl;
-        return;
-    }
-
     if (proc.getPrioridad() == nodo->prioridad) {
         nodo->listaProcesos.insertarFinal(proc);
         cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.getPrioridad() << endl;
     } else if (proc.getPrioridad() < nodo->prioridad) {
-        // Recorrer hacia la izquierda si la prioridad del proceso es menor
-        insertar(proc, nodo->hi);
+        if (nodo->hi == nullptr) {
+            Lista listaNueva;
+            nodo->hi = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
+            cout << "Nodo izquierdo creado con prioridad: " << proc.getPrioridad() << endl;
+            nodo->hi->listaProcesos.insertarFinal(proc);
+        } else {
+            insertar(proc, nodo->hi);
+        }
     } else {
-        // Recorrer hacia la derecha si la prioridad del proceso es mayor
-        insertar(proc, nodo->hd);
+        if (nodo->hd == nullptr) {
+            Lista listaNueva;
+            nodo->hd = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
+            cout << "Nodo derecho creado con prioridad: " << proc.getPrioridad() << endl;
+            nodo->hd->listaProcesos.insertarFinal(proc);
+        } else {
+            insertar(proc, nodo->hd);
+        }
     }
 }
 
-NodoAVL* AVL::get_raiz(){
+NodoAVL* AVL::getRaiz(){
     return raiz;
 }
 
@@ -105,11 +104,26 @@ void AVL::mostrarNiveles() {
     mostrarNiveles(raiz);
 }
 
-
+//Al igual que mistrar de mayor a menor pero invirtiendo el orden del vector 
 void AVL::mostrarNiveles(NodoAVL *nodo) {
-    if (nodo != nullptr && !nodo->listaProcesos.esVacia()) {
-        mostrarNiveles(nodo->hi);
-        mostrarNiveles(nodo->hd);
+    if (nodo == nullptr) {
+        cout << "El árbol está vacío" << endl;
+        return;
+    }
+
+    // Crear un vector para almacenar los nodos
+    std::vector<NodoAVL*> nodos;
+
+    // Llenar el vector con todos los nodos del árbol
+    llenarVector(nodo, nodos);
+
+    // Ordenar el vector en orden ascendente de prioridad (de menor a mayor)
+    std::sort(nodos.begin(), nodos.end(), [](NodoAVL* a, NodoAVL* b) {
+        return a->prioridad < b->prioridad; // Orden ascendente
+    });
+
+    // Mostrar los nodos en orden ascendente (menor a mayor)
+    for (NodoAVL* nodo : nodos) {
         cout << "Prioridad: " << nodo->prioridad << endl;
     }
 }
@@ -120,13 +134,41 @@ void AVL::mostrarNivelesMayorMenor(){
 
 void AVL::mostrarNivelesMayorMenor(NodoAVL* nodo) {
     if (nodo == nullptr) {
-        cout << "El arbol esta vacio o el nodo proporcionado es nulo" << endl;
+        cout << "El arbol esta vacio" << endl;
         return;
     }
-    else {
-        mostrarNivelesMayorMenor(nodo->hd);
-        mostrarNivelesMayorMenor(nodo->hi);
+
+    // Crear un vector para almacenar los nodos
+    std::vector<NodoAVL*> nodos;
+
+    // Llenar el vector con todos los nodos del árbol
+    llenarVector(nodo, nodos);
+
+    // Ordenar el vector en orden descendente de prioridad
+    std::sort(nodos.begin(), nodos.end(), [](NodoAVL* a, NodoAVL* b) {
+        return a->prioridad > b->prioridad; // Orden descendente
+    });
+
+    // Mostrar los nodos en orden descendente
+    for (NodoAVL* nodo : nodos) {
         cout << "Prioridad: " << nodo->prioridad << endl;
+    }
+}
+
+
+void AVL::llenarVector(NodoAVL* nodo, std::vector<NodoAVL*>& nodos) {
+    if (nodo == nullptr) {
+        return;
+    }
+    else{
+        // Recorremos primero el subárbol izquierdo
+        llenarVector(nodo->hi, nodos);
+
+        // Agregamos el nodo actual al vector
+        nodos.push_back(nodo);
+
+        // Recorremos el subárbol derecho
+        llenarVector(nodo->hd, nodos);
     }
 }
 
