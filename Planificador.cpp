@@ -784,6 +784,11 @@ void Planificador::mostrarNivelesconProcesosEjecutados(){
     abbProcesos.mostrarNivelesMayorMenor();
 }
 
+void Planificador::calcularMayorMenorProcesos(){
+    std::cout << "Calculando el proceso con mayor tiempo de vida y el de menor tiempo de vida..." << std::endl;
+    abbProcesos.calcularMayorMenorProcesos();
+}
+
 void Planificador::tiempoPromedioPreorden(){
     std::cout << "Mostrando el tiempo promedio de ejecucion de los procesos en cada nivel de prioridad" << std::endl;
     abbProcesos.calcularYMostrarTiempoPromedioPreorden();

@@ -80,7 +80,7 @@ int main() {
                 planificador.mostrarNivelesconProcesosEjecutados();
                 break;
             case 12:
-                //arbol.calcularMayorMenorProcesos();
+                planificador.calcularMayorMenorProcesos();
                 break;
             case 13:
                 cout << "Ingrese la prioridad: ";

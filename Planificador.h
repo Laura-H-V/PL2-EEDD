@@ -49,6 +49,7 @@ public:
     void mostrarABB();
     void buscarProcesos(int prioridad);
     void mostrarNivelesconProcesosEjecutados();
+    void calcularMayorMenorProcesos();
     void tiempoPromedioPreorden();
 };
 
