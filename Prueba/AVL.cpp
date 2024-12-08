@@ -211,3 +211,56 @@ float AVL::tiempoPromedioEjecucion(int prioridad, NodoAVL *nodo) {
     }
 }
 
+float AVL::tiempoPromedioTotal() {
+    return tiempoPromedioTotal(raiz);
+}
+
+
+float AVL::tiempoPromedioTotal(NodoAVL* nodo) {
+    if (nodo == nullptr) {
+        return 0;  // Si el árbol está vacío, retornar 0
+    }
+
+    float tiempoTotal = sumarTiempos(nodo);
+    int cantidadProcesos = contarProcesos(nodo);
+
+    // Retornar el tiempo promedio total
+    if (cantidadProcesos > 0) {
+        return tiempoTotal / cantidadProcesos;
+    }
+    return 0;  // Si no hay procesos, retornar 0
+}
+
+float AVL::sumarTiempos(NodoAVL* nodo) {
+    if (nodo == nullptr) {
+        return 0;
+    }
+
+    float tiempoTotal = 0;
+
+    // Recorrer los nodos del árbol en orden (inorden)
+    // Primero, recorrer el subárbol izquierdo
+    tiempoTotal += sumarTiempos(nodo->hi);
+
+    // Ahora procesar el nodo actual
+    pNodoLista actual = nodo->listaProcesos.obtenerCabeza();
+    while (actual != nullptr) {
+        Proceso p = actual->obtenerValor();
+        tiempoTotal += p.getTiempoVida();  // Sumar el tiempo de vida del proceso
+        actual = actual->obtenerSiguiente();
+    }
+
+    // Finalmente, recorrer el subárbol derecho
+    tiempoTotal += sumarTiempos(nodo->hd);
+
+    return tiempoTotal;
+}
+
+int AVL::contarProcesos(NodoAVL* nodo) {
+    if (nodo == nullptr) {
+        return 0;
+    }
+
+    int cantidad = nodo->listaProcesos.longitud();  // Obtener la longitud de la lista de procesos en el nodo
+    return cantidad + contarProcesos(nodo->hi) + contarProcesos(nodo->hd);  // Sumar procesos de subárbol izquierdo y derecho
+}

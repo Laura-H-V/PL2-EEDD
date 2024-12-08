@@ -9,11 +9,11 @@ int main() {
 
     // Crear algunos procesos con formato actualizado
     // Proceso(pid, ppid, tiempo_inicio, tiempo_ejecucion, prioridad, nucleo)
-    Proceso p1(1, 0, 0, 5, 1,0);  // Proceso 1, prioridad 1
-    Proceso p2(2, 1, 1, 10, 3,0); // Proceso 2, prioridad 3
-    Proceso p3(3, 1, 2, 7, 1,0);  // Proceso 3, prioridad 1
-    Proceso p4(4, 2, 3, 8, 5,0);  // Proceso 4, prioridad 5
-    Proceso p5(5, 3, 5, 6, 3,0);  // Proceso 5, prioridad 3
+    Proceso p1(1, 0, 0, 10, 1, 0);  // Proceso 1, prioridad 1
+    Proceso p2(2, 1, 1, 10, 3, 0); // Proceso 2, prioridad 3
+    Proceso p3(3, 1, 2, 7, 1, 0);  // Proceso 3, prioridad 1
+    Proceso p4(4, 2, 3, 8, 5, 0);  // Proceso 4, prioridad 5
+    Proceso p5(5, 3, 5, 6, 3, 0);  // Proceso 5, prioridad 3
 
     // Insertar los procesos en el árbol
     arbol.insertar(p1);
@@ -46,6 +46,12 @@ int main() {
     float tiempoPromedio = arbol.tiempoPromedioEjecucion(prioridadParaPromedio);
     cout << "Tiempo promedio de ejecución para los procesos con prioridad " 
          << prioridadParaPromedio << " es: " << tiempoPromedio << endl;
+
+    // Comprobar la función tiempoPromedioTotal
+    cout << "\nCalculando el tiempo promedio de ejecución de todos los procesos en el sistema:" << endl;
+    float tiempoPromedioTotal = arbol.tiempoPromedioTotal();
+    cout << "Tiempo promedio total de ejecución para todos los procesos es: " 
+         << tiempoPromedioTotal << endl;
 
     // Finalizar
     cout << "\nFin de la prueba del árbol AVL." << endl;
