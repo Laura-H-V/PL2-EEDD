@@ -309,3 +309,73 @@ int AVL::contarProcesos(NodoAVL* nodo) {
     int cantidad = nodo->listaProcesos.longitud();  // Obtener la longitud de la lista de procesos en el nodo
     return cantidad + contarProcesos(nodo->hi) + contarProcesos(nodo->hd);  // Sumar procesos de subárbol izquierdo y derecho
 }
+
+void AVL::calcularMayorMenorProcesos() {
+    if (!raiz || (!raiz->hi && !raiz->hd && raiz->listaProcesos.esVacia())) {
+        cout << "El árbol no tiene datos relevantes (solo nodo P0 o está vacío)." << endl;
+        return;
+    }
+
+    // Variables para almacenar resultados
+    int prioridadMayor = -1, mayor = -1;
+    int prioridadMenor = -1, menor = INT_MAX;
+
+    // Recorrer el árbol y calcular
+    calcularMayorMenorProcesos(raiz, prioridadMayor, mayor, prioridadMenor, menor);
+
+    // Mostrar resultados
+    cout << "Prioridad con el mayor número de procesos: " << prioridadMayor << " (Cantidad: " << mayor << ")" << endl;
+    cout << "Prioridad con el menor número de procesos: " << prioridadMenor << " (Cantidad: " << menor << ")" << endl;
+}
+
+void AVL::calcularMayorMenorProcesos(NodoAVL *nodo, int &prioridadMayor, int &mayor, int &prioridadMenor, int &menor) {
+    if (!nodo) return;
+
+    // Ignorar nodo P0 si está presente
+    if (nodo->prioridad != 0) {
+        int cantidadProcesos = nodo->listaProcesos.longitud(); // Obtener la cantidad de procesos en este nodo
+
+        // Actualizar la prioridad con más procesos
+        if (cantidadProcesos > mayor) {
+            mayor = cantidadProcesos;
+            prioridadMayor = nodo->prioridad;
+        }
+
+        // Actualizar la prioridad con menos procesos
+        if (cantidadProcesos < menor) {
+            menor = cantidadProcesos;
+            prioridadMenor = nodo->prioridad;
+        }
+    }
+
+    // Recursión para hijos
+    calcularMayorMenorProcesos(nodo->hi, prioridadMayor, mayor, prioridadMenor, menor);
+    calcularMayorMenorProcesos(nodo->hd, prioridadMayor, mayor, prioridadMenor, menor);
+}
+
+void AVL::calcularYMostrarTiempoPromedioPreorden() {
+    if (!raiz) {
+        cout << "El árbol está vacío." << endl;
+        return;
+    }
+
+    // Llamamos a la función recursiva preorden, que recorrerá el árbol en preorden
+    preorden(raiz);
+}
+
+// Función recursiva que recorre el árbol en preorden
+void AVL::preorden(NodoAVL *nodo) {
+    if (nodo == nullptr) return;  // Si el nodo es nulo, terminamos
+
+    // En cada nodo, calculamos y mostramos el tiempo promedio de ejecución
+    float promedio = tiempoPromedioEjecucion(nodo->prioridad, nodo);  // Usamos la función para calcular el tiempo promedio
+    cout << "Prioridad: " << nodo->prioridad << " | Tiempo promedio de ejecución: " << promedio << " minutos." << endl;
+
+    // Recorremos el subárbol izquierdo en preorden
+    preorden(nodo->hi);
+
+    // Recorremos el subárbol derecho en preorden
+    preorden(nodo->hd);
+}
+
+

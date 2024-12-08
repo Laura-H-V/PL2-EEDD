@@ -26,6 +26,7 @@ public:
     Proceso inicio();  
     Proceso fin(); 
     pNodoListaProcesos obtenerCabeza() const;  
+    Proceso coger(int pos);
 };
 
 #endif // LISTAPROCESOS_H
