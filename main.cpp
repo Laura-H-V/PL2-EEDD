@@ -86,7 +86,6 @@ int main() {
                 arbol.calcularMayorMenorProcesos();
                 break;
             case 13:
-                int prioridad;
                 cout << "Ingrese la prioridad: ";
                 cin >> prioridad;
                 arbol.tiempoPromedioEjecucion(prioridad);
