@@ -49,7 +49,7 @@ public:
     void mostrarABB();
     void buscarProcesos(int prioridad);
     void mostrarNivelesconProcesosEjecutados();
-    
+    void tiempoPromedioPreorden();
 };
 
 #endif // PLANIFICADOR_H

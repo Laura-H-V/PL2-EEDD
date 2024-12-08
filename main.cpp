@@ -8,10 +8,8 @@ using namespace std;
 
 
 int main() {
-    AVL arbol;
     Planificador planificador;
     int opcion;
-    int prioridad;
     do {
         cout << "\nMenu:\n";
         cout << "1. crear pila de procesos\n";
@@ -82,15 +80,15 @@ int main() {
                 planificador.mostrarNivelesconProcesosEjecutados();
                 break;
             case 12:
-                arbol.calcularMayorMenorProcesos();
+                //arbol.calcularMayorMenorProcesos();
                 break;
             case 13:
                 cout << "Ingrese la prioridad: ";
                 cin >> prioridad;
-                arbol.tiempoPromedioEjecucion(prioridad);
+                //arbol.tiempoPromedioEjecucion(prioridad);
                 break;
             case 14:
-                arbol.calcularYMostrarTiempoPromedioPreorden();
+                planificador.tiempoPromedioPreorden();
                 break;
             case 15:
                 planificador.borrarProcesos();
