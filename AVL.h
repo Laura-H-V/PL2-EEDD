@@ -15,6 +15,7 @@ class AVL{
         void verInOrden(NodoAVL *arb);
 
 
+
         int contarNodos(); // Cuenta los nodos del árbol
         void buscar(int prioridad); // Muestra procesos en el arbol de una prioridad dada
         void buscar(int prioridad, NodoAVL *nodo);
@@ -40,6 +41,13 @@ class AVL{
         float tiempoPromedioTotal(NodoAVL *nodo);
         int contarProcesos(NodoAVL *nodo); //Cuenta los procesos que hay en un nodo o lista   
         float sumarTiempos(NodoAVL* nodo);
+
+        void calcularMayorMenorProcesos(); // Encuentra prioridades con más y menos procesos
+        void calcularMayorMenorProcesos(NodoAVL *nodo, int &prioridadMayor, int &mayor, int &prioridadMenor, int &menor);
+
+        void calcularYMostrarTiempoPromedioPreorden();  // Función para recorrer en preorden y mostrar tiempos
+        void preorden();  // Función para recorrer el árbol en preorden
+        void preorden(NodoAVL *nodo); 
 
     protected: 
     private:

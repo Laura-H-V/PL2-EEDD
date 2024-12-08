@@ -1,4 +1,5 @@
 #include "Lista.h"
+#include "Proceso.h"
 
 Lista::Lista() : cabeza(nullptr), cola(nullptr) {}
 
@@ -140,3 +141,5 @@ Nucleo Lista::fin() {
 pNodoLista Lista::obtenerCabeza() const {
     return cabeza;
 }
+
+

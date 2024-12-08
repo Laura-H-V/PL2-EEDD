@@ -27,6 +27,7 @@ public:
     Nucleo inicio();
     Nucleo fin();
     pNodoLista obtenerCabeza() const; 
+   
     
 };
 

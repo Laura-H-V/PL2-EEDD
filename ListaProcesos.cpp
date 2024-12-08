@@ -134,3 +134,20 @@ Proceso ListaProcesos::fin() {
 pNodoListaProcesos ListaProcesos::obtenerCabeza() const {
     return cabeza;
 }
+
+Proceso ListaProcesos::coger(int index) {
+    pNodoListaProcesos actual = cabeza; // Comienza desde el primer nodo
+    int contador = 0;
+
+    // Recorre la lista hasta el índice deseado
+    while (actual != nullptr) {
+        if (contador == index) { 
+            return actual->valor; // Suponemos que 'valor' es un objeto de tipo Proceso
+        }
+        actual = actual->siguiente; // Avanza al siguiente nodo
+        contador++;
+    }
+
+    // Si llegamos aquí, el índice está fuera de rango
+    throw std::out_of_range("Índice fuera de rango en la lista.");
+}
