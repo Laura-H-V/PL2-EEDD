@@ -1,5 +1,5 @@
 #include "Planificador.h"
-
+#include "AVL.h"
 
 
 Planificador::Planificador() {
@@ -246,9 +246,8 @@ void Planificador::simularTiempo(int minutosSimular) {
 
     // Simular el paso del tiempo minuto a minuto
     for (int i = 0; i < minutosSimular; ++i) {
-        std::cout << "---------------------------------------------"  << std::endl;
+        std::cout << "---------------------------------------------" << std::endl;
         std::cout << "Simulando minuto " << minuto << std::endl;
-        //mostrarProcesosEnEjecucion();
 
         bool hayProcesosActivos = false;
 
@@ -268,13 +267,18 @@ void Planificador::simularTiempo(int minutosSimular) {
 
                     std::cout << "Fin del proceso PID " << procesoEnNucleo->getPID()
                               << " en núcleo " << nucleo.getId()
-                              << " después de " << tiempoTotal << " minutos" 
+                              << " después de " << tiempoTotal << " minutos"
                               << "Tiempo en cola: " << tiempoEnCola << " minutos, "
                               << "Tiempo de vida: " << procesoEnNucleo->getTiempoVida() << " minutos, "
                               << "Tiempo total: " << tiempoTotal << " minutos" << std::endl;
 
                     totalTiempoEnSistemaAcumulado += tiempoTotal;
                     procesosTerminadosAcumulados++;
+
+                    // **Inserción en el ABBProcesos**
+                    AVL arbol;
+                    arbol.insertar(*procesoEnNucleo); 
+
                     nucleo.liberarProceso();
 
                     if (!nucleo.colaEsperaNucleo.es_vacia()) {
@@ -285,7 +289,6 @@ void Planificador::simularTiempo(int minutosSimular) {
                         nuevoProceso.setLlegada(minuto); // Guardar el minuto de llegada cuando se asigna
                         std::cout << "Inicio del proceso PID " << nuevoProceso.getPID()
                                   << " en núcleo " << nucleo.getId() << std::endl;
-
                     }
                 }
             }
@@ -315,8 +318,8 @@ void Planificador::simularTiempo(int minutosSimular) {
             Nucleo& nucleo = actual->obtenerValor();
             if (!nucleo.colaEsperaNucleo.es_vacia()) {
                 Proceso procesoEnCola = nucleo.colaEsperaNucleo.inicio();
-                std::cout << "El PID " << procesoEnCola.getPID() 
-                          << " ha entrado en la cola de espera del núcleo " 
+                std::cout << "El PID " << procesoEnCola.getPID()
+                          << " ha entrado en la cola de espera del núcleo "
                           << nucleo.getId() << " en el minuto " << minuto << std::endl;
             }
             actual = actual->obtenerSiguiente();
@@ -345,6 +348,7 @@ void Planificador::simularTiempo(int minutosSimular) {
         std::cout << "Media de tiempo en el sistema: " << media << " minutos" << std::endl;
     }
 }
+
 
 
 void Planificador::eliminarNucleosLibres() {

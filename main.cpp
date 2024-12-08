@@ -22,8 +22,15 @@ int main() {
         //procesos que están a la espera de ser ejecutados)
         cout << "6. Consultar que nucleo tiene menos procesos y cuál es el más ocupado\n";
         cout << "7. Numero de nucleos de atencion operativos\n";
-        cout << "8. Ejecutar todos los procesos\n";
-        cout << "9. Salir\n";
+        cout<< "8. Añadir un proceso directamente al ABBProcesos\n";
+        //cout << "8. Ejecutar todos los procesos\n";
+        cout<< "9. Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad.\n";
+        cout<< "10. Añadir un proceso directamente al ABBProcesos\n";
+        cout<< "11. Mostrar todos los niveles de prioridad que han tenido al menos un proceso ejecutado, en orden numérico\n";
+        cout<< "12.Calcular y mostrar el nivel de prioridad con el mayor número de procesos y el de menor número  \n";
+        cout<< "13. Calcular y mostrar el tiempo promedio de ejecución de los procesos con una prioridad específica \n";
+        cout<< "14. Calcular y mostrar el tiempo promedio de ejecución de los procesos en cada nivel de prioridad, recorriendo el árbol en preorden  \n";
+        cout << "15. Salir\n";
         cout << "Introduce tu opcion: ";
         cin >> opcion;
 
@@ -56,17 +63,31 @@ int main() {
             case 7:
                 planificador.numeroNucleos();
                 break;
+            //case 8:
+            //    planificador.ejecutarTodosLosProcesos();
+            //    break;
             case 8:
-                planificador.ejecutarTodosLosProcesos();
                 break;
             case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+            case 15:
                 planificador.borrarProcesos();
                 cout << "Saliendo..." << std::endl;
                 break;
             default:
                 cout << "Opcion invalida, por favor intenta de nuevo." << endl;
         }
-    } while (opcion != 9);
+    } while (opcion != 15);
 
     return 0;
 }
