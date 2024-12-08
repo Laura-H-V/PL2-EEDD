@@ -12,7 +12,6 @@ class Planificador {
 private:
     Lista listaNucleos;
     Pila pilaProcesos;
-    //Cola colaEspera;
     int tiempoInicio;
     int numeroProcesos;
     int TiempoTotalProcesos;

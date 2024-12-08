@@ -30,8 +30,6 @@ void Planificador::asignarProcesoANucleo(Proceso* proceso) {
             std::cout << "Proceso PID " << proceso->getPID()
                       << " asignado al núcleo " << nucleo.getId() << std::endl;
 
-            // Verificar si hay núcleos libres suficientes para eliminar
-            eliminarNucleo(); 
             return; // Terminar la asignación
         }
 
@@ -105,29 +103,85 @@ void Planificador::liberarNucleo(int idNucleo) {
 void Planificador::crearPilaProcesos() {
     //Proceso(int pid, int ppid, int ini, int tiempo, int pri, int nucleo = -1);
     //Proceso(int pid, int ppid, int ini, int tiempo, int pri, int nucleo = -1);
-    Proceso p1(1, 0, 0, 5, 1);
+    Proceso p1=Proceso(1,1, 0, 4, 0);
+    Proceso p2=Proceso(2,1, 0, 5, 1);
+    Proceso p3=Proceso(3,1, 1, 4, 3);
+    Proceso p4=Proceso(4,2, 4, 3, 7);
+    Proceso p5=Proceso(5,2, 6, 2, 2);
+    Proceso p6=Proceso(6,3, 9, 5, 1);
+    Proceso p7=Proceso(7,3, 10, 3, 4);
+    Proceso p8=Proceso(8,4, 12, 2, 6);
+    Proceso p9=Proceso(9,7, 13, 1, 8);
+    Proceso p10=Proceso(10,5, 15, 4, 2);
+    Proceso p11=Proceso(11,4, 16, 3, 3);
+    Proceso p12=Proceso(12,5, 18, 2, 5);
+    Proceso p13=Proceso(13,6, 18, 1, 1);
+    Proceso p14=Proceso(14,6, 18, 2, 4);
+    Proceso p15=Proceso(15,7, 19, 5, 0);
+    Proceso p16=Proceso(16,8, 19, 3, 6);
+    Proceso p17=Proceso(17,10, 20, 2, 7);
+    Proceso p18=Proceso(18,8, 21, 1, 8);
+    Proceso p19=Proceso(19,9, 21, 2, 2);
+    Proceso p20=Proceso(20,0, 0, 2, 1);
+    Proceso p21=Proceso(21,1, 0, 2, 2);
+    Proceso p22=Proceso(22,1, 0, 2, 9);
+    Proceso p23=Proceso(23,1, 0, 2, 5);
+    Proceso p24=Proceso(24,1, 0, 2, 1);
+    Proceso p25=Proceso(25,1, 0, 2, 3);
+
     p1.setLlegada(0);
-    pilaProcesos.apilar(p1);
-
-    Proceso p2(2, 1, 0, 3, 2);
     p2.setLlegada(0);
-    pilaProcesos.apilar(p2);
+    p3.setLlegada(1);
+    p4.setLlegada(4);
+    p5.setLlegada(6);
+    p6.setLlegada(9);
+    p7.setLlegada(10);
+    p8.setLlegada(12);
+    p9.setLlegada(13);
+    p10.setLlegada(15);
+    p11.setLlegada(16);
+    p12.setLlegada(18);
+    p13.setLlegada(18);
+    p14.setLlegada(18);
+    p15.setLlegada(19);
+    p16.setLlegada(19);
+    p17.setLlegada(20);
+    p18.setLlegada(21);
+    p19.setLlegada(21);
+    p20.setLlegada(0);
+    p21.setLlegada(0);
+    p22.setLlegada(0);
+    p23.setLlegada(0);
+    p24.setLlegada(0);
+    p25.setLlegada(0);
+    
 
-    Proceso p3(3, 1, 0, 6, 9);
-    p3.setLlegada(0);
-    pilaProcesos.apilar(p3);
 
-    Proceso p4(4, 1, 0, 7, 5);
-    p4.setLlegada(0);
-    pilaProcesos.apilar(p4);
-
-    Proceso p5(5, 1, 0, 6, 1);
-    p5.setLlegada(0);
-    pilaProcesos.apilar(p5);
-
-    Proceso p6(6, 1, 0, 8, 3);
-    p6.setLlegada(0);
+    pilaProcesos.apilar(p7);
+    pilaProcesos.apilar(p11);
+    pilaProcesos.apilar(p13);
+    pilaProcesos.apilar(p9);
+    pilaProcesos.apilar(p18);
+    pilaProcesos.apilar(p15);
     pilaProcesos.apilar(p6);
+    pilaProcesos.apilar(p17);
+    pilaProcesos.apilar(p2);
+    pilaProcesos.apilar(p1);
+    pilaProcesos.apilar(p12);
+    pilaProcesos.apilar(p10);
+    pilaProcesos.apilar(p4);
+    pilaProcesos.apilar(p8);
+    pilaProcesos.apilar(p14);
+    pilaProcesos.apilar(p5);
+    pilaProcesos.apilar(p16);
+    pilaProcesos.apilar(p3);
+    pilaProcesos.apilar(p19);
+    pilaProcesos.apilar(p20);
+    pilaProcesos.apilar(p21);
+    pilaProcesos.apilar(p22);
+    pilaProcesos.apilar(p23);
+    pilaProcesos.apilar(p24);
+    pilaProcesos.apilar(p25);
 
     setNumeroProcesos(pilaProcesos.longitud());
 }
@@ -179,18 +233,22 @@ void Planificador::simularTiempo(int minutosSimular) {
     int totalProcesos = pilaProcesos.longitud();
     numeroProcesos = 0;
 
+    // Asignar los primeros tres procesos a los tres núcleos iniciales
+    for (int i = 0; i < 3 && !pilaProcesos.esVacia(); ++i) {
+        Proceso* proceso = pilaProcesos.mostrar();
+        if (proceso) {
+            asignarProcesoANucleo(proceso);
+            proceso->setInicio(minuto);
+            proceso->setLlegada(minuto);
+            pilaProcesos.desapilar();
+        }
+    }
+
     // Simular el paso del tiempo minuto a minuto
     for (int i = 0; i < minutosSimular; ++i) {
         std::cout << "---------------------------------------------"  << std::endl;
         std::cout << "Simulando minuto " << minuto << std::endl;
         //mostrarProcesosEnEjecucion();
-        Proceso* proceso1 = pilaProcesos.mostrar();
-         if (!pilaProcesos.esVacia() && minuto >= proceso1->getInicio()){
-            asignarProcesoANucleo(proceso1);
-            proceso1->setInicio(minuto);
-            proceso1->setLlegada(minuto);
-            pilaProcesos.desapilar();
-        }
 
         bool hayProcesosActivos = false;
 
@@ -210,7 +268,10 @@ void Planificador::simularTiempo(int minutosSimular) {
 
                     std::cout << "Fin del proceso PID " << procesoEnNucleo->getPID()
                               << " en núcleo " << nucleo.getId()
-                              << " después de " << tiempoTotal << " minutos" << std::endl;
+                              << " después de " << tiempoTotal << " minutos" 
+                              << "Tiempo en cola: " << tiempoEnCola << " minutos, "
+                              << "Tiempo de vida: " << procesoEnNucleo->getTiempoVida() << " minutos, "
+                              << "Tiempo total: " << tiempoTotal << " minutos" << std::endl;
 
                     totalTiempoEnSistemaAcumulado += tiempoTotal;
                     procesosTerminadosAcumulados++;
@@ -229,6 +290,35 @@ void Planificador::simularTiempo(int minutosSimular) {
                 }
             }
 
+            actual = actual->obtenerSiguiente();
+        }
+
+        // Asignar nuevos procesos a núcleos libres
+        while (!pilaProcesos.esVacia()) {
+            Proceso* proceso = pilaProcesos.mostrar();
+            if (proceso && minuto >= proceso->getInicio()) {
+                asignarProcesoANucleo(proceso);
+                proceso->setInicio(minuto);
+                proceso->setLlegada(minuto);
+                pilaProcesos.desapilar();
+            } else {
+                break;
+            }
+        }
+
+        // Verificar si se necesita agregar un nuevo núcleo
+        agregarNucleo();
+
+        // Imprimir cuando un proceso entra en la cola de espera de un núcleo
+        actual = listaNucleos.obtenerCabeza();
+        while (actual != nullptr) {
+            Nucleo& nucleo = actual->obtenerValor();
+            if (!nucleo.colaEsperaNucleo.es_vacia()) {
+                Proceso procesoEnCola = nucleo.colaEsperaNucleo.inicio();
+                std::cout << "El PID " << procesoEnCola.getPID() 
+                          << " ha entrado en la cola de espera del núcleo " 
+                          << nucleo.getId() << " en el minuto " << minuto << std::endl;
+            }
             actual = actual->obtenerSiguiente();
         }
 
@@ -475,22 +565,7 @@ void Planificador::ejecutarTodosLosProcesos() {
         }
     }
 
-    // Mover los procesos restantes a la cola de espera de los núcleos
-    while (!pilaProcesos.esVacia()) {
-        Proceso* proceso = pilaProcesos.mostrar();
-        if (proceso) {
-            Nucleo& nucleo = nucleoMenosOcupado();
-            nucleo.colaEsperaNucleo.encolar(*proceso, proceso->getPrioridad());
-            pilaProcesos.desapilar();
-
-            // Crear un nuevo núcleo si un núcleo tiene más de dos procesos en espera
-            if (nucleo.longitudColaEsperaNucleo() > 2) {
-                agregarNucleo();
-                std::cout << "Nuevo núcleo creado. ID: " 
-                          << listaNucleos.fin().getId() << std::endl;
-            }
-        }
-    }
+    
 
     // Simular el paso del tiempo minuto a minuto
     while (procesosTerminados < totalProcesos) {
