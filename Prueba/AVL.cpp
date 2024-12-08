@@ -10,8 +10,8 @@ AVL::AVL(NodoAVL *r){
     raiz = r; // La raiz es el primer nodo que se pasa como parámetro
 }
 
-AVL::AVL(ListaProcesos listaProcesos, NodoAVL *hIz, NodoAVL *hDer, int prioridad){  //constructor que crea árbolBin con dato y dos subárboles
-    raiz = new NodoAVL(listaProcesos, hIz, hDer, prioridad); //llamamos al constructor del Nodo y raiz es un puntero al Nodo creado
+AVL::AVL(Lista listaProcesos, NodoAVL *hIz, NodoAVL *hDer, int prioridad){  //constructor que crea árbolBin con dato y dos subárboles
+    raiz = new NodoAVL(listaProcesos, hIz, hDer,prioridad); //llamamos al constructor del Nodo y raiz es un puntero al Nodo creado
 }
 
 AVL::~AVL(){
@@ -41,7 +41,7 @@ void AVL::verInOrden(NodoAVL *arb){
 void AVL::insertar(Proceso proc){
     if (raiz == nullptr) {
         // Si el árbol está vacío, inicializa la raíz
-        ListaProcesos listaNueva;
+        Lista listaNueva;
         raiz = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
         cout << "Nodo raíz creado con prioridad: " << proc.getPrioridad() << endl;
         raiz->listaProcesos.insertarFinal(proc);
@@ -57,7 +57,7 @@ void AVL::insertar(Proceso proc, NodoAVL *nodo){
         cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.getPrioridad() << endl;
     } else if (proc.getPrioridad() < nodo->prioridad) {
         if (nodo->hi == nullptr) {
-            ListaProcesos listaNueva;
+            Lista listaNueva;
             nodo->hi = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
             cout << "Nodo izquierdo creado con prioridad: " << proc.getPrioridad() << endl;
             nodo->hi->listaProcesos.insertarFinal(proc);
@@ -66,7 +66,7 @@ void AVL::insertar(Proceso proc, NodoAVL *nodo){
         }
     } else {
         if (nodo->hd == nullptr) {
-            ListaProcesos listaNueva;
+            Lista listaNueva;
             nodo->hd = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
             cout << "Nodo derecho creado con prioridad: " << proc.getPrioridad() << endl;
             nodo->hd->listaProcesos.insertarFinal(proc);
@@ -191,7 +191,7 @@ float AVL::tiempoPromedioEjecucion(int prioridad, NodoAVL *nodo) {
         }
 
         // Recorre los nodos de la lista de procesos y acumula los tiempos de ejecución (tiempoVida)
-        pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();  // Obtener la cabeza de la lista
+        pNodoLista actual = nodo->listaProcesos.obtenerCabeza();  // Obtener la cabeza de la lista
         while (actual != nullptr) {
             Proceso p = actual->obtenerValor();  // Obtiene el proceso del nodo actual
             tiempoTotal += p.getTiempoVida();  // Suma el tiempo de vida (tiempo de ejecución)
@@ -243,7 +243,7 @@ float AVL::sumarTiempos(NodoAVL* nodo) {
     tiempoTotal += sumarTiempos(nodo->hi);
 
     // Ahora procesar el nodo actual
-    pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
+    pNodoLista actual = nodo->listaProcesos.obtenerCabeza();
     while (actual != nullptr) {
         Proceso p = actual->obtenerValor();
         tiempoTotal += p.getTiempoVida();  // Sumar el tiempo de vida del proceso

@@ -1,19 +1,19 @@
 #ifndef NODOLISTA_H
 #define NODOLISTA_H
 
-#include "Nucleo.h"
+#include "Proceso.h"
 
 class NodoLista {
 private:
-    Nucleo valor;
+    Proceso valor;
     NodoLista* siguiente; // Puntero al siguiente nodo
     NodoLista* anterior; // Puntero al nodo anterior
     friend class Lista; // La clase Lista puede acceder a los datos privados de NodoLista
 
 public:
     NodoLista(); // Constructor vacío
-    NodoLista(Nucleo p, NodoLista* sig = nullptr, NodoLista* ant = nullptr);
-    Nucleo& obtenerValor(); // Obtener el valor del nodo
+    NodoLista(Proceso p, NodoLista* sig = nullptr, NodoLista* ant = nullptr);
+    Proceso& obtenerValor(); // Obtener el valor del nodo
     NodoLista* obtenerSiguiente();
     ~NodoLista(); // Destructor
 };
