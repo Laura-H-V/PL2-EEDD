@@ -371,19 +371,10 @@ void AVL::calcularYMostrarTiempoPromedioPreorden() {
 // Función recursiva que recorre el árbol en preorden
 void AVL::preorden(NodoAVL *nodo) {
     if (nodo == nullptr) return;  // Si el nodo es nulo, terminamos
-    
-    // Calcular la suma del tiempo en sistema de cada proceso en el nodo
-    float sumaTiemposSistema = 0;
-    pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
-    while (actual != nullptr) {
-        Proceso p = actual->obtenerValor();
-        sumaTiemposSistema += p.getTiempoSistema();
-        actual = actual->obtenerSiguiente();
-    }
 
-    // Calcular el tiempo promedio de ejecución
-    float promedio = sumaTiemposSistema / nodo->listaProcesos.longitud();
-    cout << "Prioridad: " << nodo->prioridad << " | Tiempo promedio en sistema: " << promedio << " minutos." << endl;
+    // En cada nodo, calculamos y mostramos el tiempo promedio de ejecución
+    float promedio = tiempoPromedioEjecucion(nodo->prioridad, nodo);  // Usamos la función para calcular el tiempo promedio
+    cout << "Prioridad: " << nodo->prioridad << " | Tiempo promedio de ejecución: " << promedio << " minutos." << endl;
 
     // Recorremos el subárbol izquierdo en preorden
     preorden(nodo->hi);
