@@ -17,15 +17,20 @@ class NodoAVL{
         ListaProcesos getLista();
         NodoAVL* getIzq();
         NodoAVL* getDerch();
+        NodoAVL* getPadre();
         int getPrioridad();
 
         void getIzq(NodoAVL *izq);
         void getDerch(NodoAVL *der);
         void getPrioridad(int prioridad);
         void mostrar();
+        void mostrarPadre();
+
+        void setIzq(NodoAVL *izq);
+        void setDerch(NodoAVL *der);
     private:
         ListaProcesos listaProcesos;
-        NodoAVL *hi,*hd;
+        NodoAVL *hi,*hd, *padre;
         int prioridad;
 };
 

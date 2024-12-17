@@ -31,6 +31,10 @@ NodoAVL* NodoAVL::getDerch(){
     return hd;
 }
 
+NodoAVL* NodoAVL::getPadre(){
+    return padre;
+}
+
 int NodoAVL::getPrioridad(){
     return prioridad;
 }
@@ -50,4 +54,33 @@ void NodoAVL::getPrioridad(int prioridad){
 void NodoAVL::mostrar(){
     cout << "Prioridad: " << prioridad << endl;
     listaProcesos.mostrar();
+}
+
+void NodoAVL::mostrarPadre() {
+    if (padre) {
+        cout << "Nodo actual con prioridad: " << prioridad << endl;
+        cout << "Padre con prioridad: " << padre->getPrioridad() << endl;
+
+        if (padre->getIzq() == this) {
+            cout << "Soy hijo izquierdo." << endl;
+        } else if (padre->getDerch() == this) {
+            cout << "Soy hijo derecho." << endl;
+        }
+    } else {
+        cout << "Soy la raíz, no tengo padre." << endl;
+    }
+}
+
+void NodoAVL::setIzq(NodoAVL *izq) {
+    hi = izq;
+    if (izq != nullptr) {
+        izq->padre = this;
+    }
+}
+
+void NodoAVL::setDerch(NodoAVL *der) {
+    hd = der;
+    if (der != nullptr) {
+        der->padre = this;
+    }
 }

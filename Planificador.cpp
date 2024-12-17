@@ -677,6 +677,7 @@ void Planificador::meterProcesosEnABB(){
                 std::cout << "Proceso añadido al ABB con éxito!" << std::endl;
 }
 
+//Función 9, mostrar el ABB 
 void Planificador::mostrarABB(){
     std::cout << "\nMostrando el árbol por niveles:" << std::endl;
     abbProcesos.mostrarNiveles();

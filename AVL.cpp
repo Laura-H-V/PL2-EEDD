@@ -86,12 +86,14 @@ void AVL::insertar(Proceso proc, NodoAVL *nodo){
         if (!nodo->hi) {
             ListaProcesos listaNueva;
             nodo->hi = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
+            nodo->setIzq(nodo->hi);
         }
         insertar(proc, nodo->hi);
     } else {
         if (!nodo->hd) {
             ListaProcesos listaNueva;
             nodo->hd = new NodoAVL(listaNueva, nullptr, nullptr, proc.getPrioridad());
+            nodo->setDerch(nodo->hd);
         }
         insertar(proc, nodo->hd);
     }
@@ -127,6 +129,7 @@ void AVL::mostrarNiveles() {
 }
 
 //Al igual que mistrar de mayor a menor pero invirtiendo el orden del vector 
+//Al igual que mistrar de mayor a menor pero invirtiendo el orden del vector 
 void AVL::mostrarNiveles(NodoAVL *nodo) {
     if (nodo == nullptr) {
         cout << "El árbol está vacío" << endl;
@@ -146,7 +149,8 @@ void AVL::mostrarNiveles(NodoAVL *nodo) {
 
     // Mostrar los nodos en orden ascendente (menor a mayor)
     for (NodoAVL* nodo : nodos) {
-        cout << "Prioridad: " << nodo->prioridad << endl;
+        cout << "Prioridad: " << nodo->prioridad << " Padre: " << endl;
+        nodo->mostrarPadre();
 
         // Recorrer la lista de procesos en este nodo y mostrar el PID y el tiempo de vida
         pNodoListaProcesos actual = nodo->listaProcesos.obtenerCabeza();
@@ -159,6 +163,7 @@ void AVL::mostrarNiveles(NodoAVL *nodo) {
         cout << "--------------------------------------------" << endl;
     }
 }
+
 
 
 void AVL::mostrarNivelesMayorMenor(){
